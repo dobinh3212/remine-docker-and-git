@@ -227,9 +227,14 @@ npm add cross-env
 --------------------------------
 cài mysql trong container
 apt-get install default-mysql-client
-
+hoặc
+yum update
+yum install mysql
+// imput file sql
 mysql -uroot -p'secret' -h db homestead < tests/test_db.sql
 mysql -uroot -h db homestead4_admin < tests/homestead_admin.sql
+//kiểm tra địa chỉ ip của mysql
+docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mogana_api-mysql-1
 
 ----------------------------------------Mockery----------
         // $instance = app()->make(GmoPaymentGateway::class);
@@ -303,5 +308,27 @@ nvm use v16.19.1
 
 npm install -g ts-node
 
-ts-node handle.ts
-php handle.php
+ts-node file.ts
+php file.php
+
+-----jmeter-------------------------------
+
+Bước 1. Download Java for jmeter: sudo apt-get install openjdk-7-jre-headless
+Bước 2. Check java version: java -version
+Bước 3. Download jmeter as command: wget-c http://ftp.ps.pl/pub/apache//jmeter/binaries/apache-jmeter-3.0.tgz
+Bước 4. Update version for jmeter(if any): sudo apt-get update
+Bước 5. Go to Download directory: cd Downloads/
+Bước 6. Unpack jmeter: tar -xf apache-jmeter-4.0.tgz
+Bước 7. Go to Jmeter directory: cd apache-jmeter-4.0/
+Bước 8. Run: ./bin/jmeter
+
+cd ~/Documents/apache-jmeter-5.5
+./bin/jmeter
+
+
+// xác định xem container nào đang dùng cổng 3306
+sudo lsof -i :3306
+// dừng cổng đó 
+sudo kill <PID>
+// khởi động lại 1 container bất kỳ
+docker restart ....
