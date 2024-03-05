@@ -15,7 +15,7 @@ sudo apt-get install nano
 nano php.ini-development
 
 //cài composer
-sudo apt install composer
+sudo apt install composer~/Documents/mogana_api
 
 build dockerfile => images
 sudo docker build -t dockerfile .
@@ -127,7 +127,7 @@ mysql -u root -p
 //cái này sẽ mở console của Laravel, từ đó gọi thử các model xem có kết nối đc với DB thành công không?
 
 //xoa docker compose
-docker-compose down --volumephp8.1-
+docker-compose down --volume 
 
 php artisan tinker 
 App\Models\User::all();
@@ -157,14 +157,7 @@ composer require --dev squizlabs/php_codesniffer
 
 -------tạo database test ------------
         //Thêm trong file .env
-        DB_HOST_TEST=db
-        DB_DATABASE_TEST=datatest
-        DB_USERNAME_TEST=root
-        DB_PASSWORD_TEST=password
-        //Thêm trong config database
-        //cấu hình kết nối data test
-        'mysql_test' => [
-            'driver'    => 'mysql',
+        DB_HOST_TEST=db~/Documents/mogana_api
             'host'      => env('DB_HOST_TEST', '127.0.0.1'),
             'database'  => env('DB_DATABASE_TEST', 'forge'),
             'username'  => env('DB_USERNAME_TEST', 'forge'),
@@ -172,13 +165,7 @@ composer require --dev squizlabs/php_codesniffer
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
-            'strict'    => false,
-        ],
-
-
------push git ssh -----------
-
-git clone https://github.com/dobinh3212/docker-2.git
+            'strict'    => false,1e5b4eac3f70git clone https://github.com/dobinh3212/docker-2.git
 
 // tạo khóa ssh tìm đến thư mục để copy key ssh rồi paste lên git
 ssh-keygen -t rsa -b 4096 -C "your_email@gmail.com"
@@ -194,7 +181,7 @@ git reset HEAD~1
 git push -f 
 
 git push -f origin feature/7/manager_apartment_user
-
+1e5b4eac3f70
 git reset --hard 5ab301f 
 
 git fetch
@@ -204,25 +191,31 @@ git rebase origin/master
 git rebase --abort
 
 git checkout -b "feature/test"
+Xử lý bug mail nếu vấn còn
 
 git checkout 8bb5936b
 
 git cherry-pick 8bb5936b
 
-git merge --squash b94f9f ce87947
+git merge --squash b94f9f ce87947~/Documents/mogana_api
 
 git checkout -b tést 17b5c3f4
 
 git pull --rebase origin develop2
 
+//kiểm tra username và useremail config git local
+git config user.name
+git config user.email
+
 ------------/Xdebug-----------
 RUN pecl install xdebug \
     && docker-php-ext-enable xdebug
-    
+    update search by formId
 XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-html coverage
 XDEBUG_MODE=coverage php artisan test --filter ReservationControllerTest --coverage-html coverage
 
-npm add cross-env
+npm add cross-envXử lý bug mail nếu vấn còn
+
 
 --------------------------------
 cài mysql trong container
@@ -234,7 +227,7 @@ yum install mysql
 mysql -uroot -p'secret' -h db homestead < tests/test_db.sql
 mysql -uroot -h db homestead4_admin < tests/homestead_admin.sql
 //kiểm tra địa chỉ ip của mysql
-docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mogana_api-mysql-1
+docker inspect -f '{{range .NetworkSettings.update search by formIdNetworks}}{{.IPAddress}}{{end}}' mogana_api-mysql-1
 
 ----------------------------------------Mockery----------
         // $instance = app()->make(GmoPaymentGateway::class);
@@ -258,7 +251,8 @@ docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mog
             })
         );
 
-php artisan config:clear
+php artisan config:clearXử lý bug mail nếu vấn còn
+
 php artisan optimize
 
 /-------------------admin----------------
@@ -272,7 +266,8 @@ npm run development
 ///First, run:
 
 rm -rf node_modules
-rm package-lock.json yarn.lock
+rm package-lock.json yarn.
+lock
 npm cache clear --force
 
 ////Then run the command
@@ -284,7 +279,7 @@ npm install cross-env
 php artisan cache:clear
 php artisan config:cache
 php artisan view:cache
-php artisan config:clear
+php artisan config:clearlaravel-course-api
 php artisan event:cache
 php artisan route:cache
 
@@ -309,7 +304,7 @@ nvm use v16.19.1
 npm install -g ts-node
 
 ts-node file.ts
-php file.php
+php file.phpupdate search by formId
 
 -----jmeter-------------------------------
 
@@ -320,7 +315,7 @@ Bước 4. Update version for jmeter(if any): sudo apt-get update
 Bước 5. Go to Download directory: cd Downloads/
 Bước 6. Unpack jmeter: tar -xf apache-jmeter-4.0.tgz
 Bước 7. Go to Jmeter directory: cd apache-jmeter-4.0/
-Bước 8. Run: ./bin/jmeter
+Bước 8. Run: ./bin/jmeter100%
 
 cd ~/Documents/apache-jmeter-5.5
 ./bin/jmeter
@@ -332,3 +327,7 @@ sudo lsof -i :3306
 sudo kill <PID>
 // khởi động lại 1 container bất kỳ
 docker restart ....
+
+_______ngrok______
+ngrok config add-authtoken 2We2mMyTuFQT2zzAQv16UazVGLP_61k5RbP6xRSLdkqfZqCpP
+ngrok http http://localhost:8080
