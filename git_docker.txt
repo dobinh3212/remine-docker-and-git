@@ -325,9 +325,19 @@ cd ~/Documents/apache-jmeter-5.5
 sudo lsof -i :3306
 // dừng cổng đó 
 sudo kill <PID>
+hoặc sudo kill -9 <PID>
 // khởi động lại 1 container bất kỳ
 docker restart ....
 
 _______ngrok______
 ngrok config add-authtoken 2We2mMyTuFQT2zzAQv16UazVGLP_61k5RbP6xRSLdkqfZqCpP
 ngrok http http://localhost:8080
+
+
+_________________________________
+Xử lý config git
+git reset HEAD~1
+git stash
+git merge
+git stash list
+git stash pop stash@{0}
