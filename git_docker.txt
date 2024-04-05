@@ -326,6 +326,8 @@ sudo lsof -i :3306
 // dừng cổng đó 
 sudo kill <PID>
 hoặc sudo kill -9 <PID>
+hoặc sudo systemctl stop name_command
+
 // khởi động lại 1 container bất kỳ
 docker restart ....
 
