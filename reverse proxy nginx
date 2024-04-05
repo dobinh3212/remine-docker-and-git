@@ -1,0 +1,144 @@
+//Configuring nginx as a reverse proxy
+
+Reverse proxy là một loại máy chủ trung gian giữa máy khách và máy chủ backend. 
+Nó nhận yêu cầu từ máy khách và chuyển tiếp chúng tới máy chủ backend. 
+Các trường hợp sử dụng bao gồm tăng hiệu suất, bảo mật, cân bằng tải, cung cấp SSL/TLS termination và quản lý quyền truy cập.
+
+//Cài đặt lại Nginx từ đầu
+//Gỡ cài đặt Nginx hiện tại:
+sudo apt-get remove nginx
+
+//Xóa tất cả các tệp cấu hình Nginx còn lại (nếu có):
+sudo rm -rf /etc/nginx
+
+//Cài đặt Nginx lại:
+sudo apt-get install nginx
+
+//Sau khi cài đặt xong, kiểm tra xem Nginx đã được cài đặt thành công chưa:
+nginx -v
+
+//Tạo thư mục /var/log/nginx/:
+sudo mkdir -p /var/log/nginx
+
+//Cấp quyền cho thư mục:
+sudo chmod 755 /var/log/nginx
+
+//Tạo lại thư mục /etc/nginx:
+sudo mkdir /etc/nginx
+
+//Tạo một tệp nginx.conf mới nếu chưa tạo:
+sudo nano /etc/nginx/nginx.conf
+
+//nội dung file nginx.conf
+
+-----------------------------------
+user www-data;
+worker_processes auto;
+pid /run/nginx.pid;
+
+events {
+    worker_connections 768;
+    # multi_accept on;
+}
+
+http {
+    ##
+    # Basic Settings
+    ##
+
+    sendfile on;
+    tcp_nopush on;
+    tcp_nodelay on;
+    keepalive_timeout 65;
+    types_hash_max_size 2048;
+    # server_tokens off;
+
+    # server_names_hash_bucket_size 64;
+    # server_name_in_redirect off;
+
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+
+    ##
+    # SSL Settings
+    ##
+
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2; # Dropping SSLv3, ref: POODLE
+    ssl_prefer_server_ciphers on;
+
+    ##
+    # Logging Settings
+    ##
+
+    access_log /var/log/nginx/access.log;
+    error_log /var/log/nginx/error.log;
+
+    ##
+    # Gzip Settings
+    ##
+
+    gzip on;
+
+    # gzip_vary on;
+    # gzip_proxied any;
+    # gzip_comp_level 6;
+    # gzip_buffers 16 8k;
+    # gzip_http_version 1.1;
+    # gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+
+    ##
+    # Virtual Host Configs
+    ##
+
+    include /etc/nginx/conf.d/*.conf;
+    include /etc/nginx/sites-enabled/*;
+}
+------------------------------------------------
+
+//Tạo lại tệp mime.types nếu chưa có:
+sudo nano /etc/nginx/mime.types
+-----------------------
+types {
+    text/html                             html htm shtml;
+    text/css                              css;
+    text/xml                              xml;
+    image/gif                             gif;
+    image/jpeg                            jpeg jpg;
+    application/javascript                js;
+    application/atom+xml                  atom;
+    application/rss+xml                   rss;
+}
+-------------------
+
+//Kiểm tra trạng thái của dịch vụ Nginx start nginx:
+sudo systemctl status nginx 
+
+//kiểm tra tệp cấu hình:
+sudo nginx -t
+
+___________________________Tạo cấu hình mới___________________________
+
+sudo nano /etc/nginx/sites-available/test.conf
+
+-------------
+server {
+  listen 80;
+  server_name 10.10.10.73;
+
+  location ~* ^/api/v1/workflow {
+    proxy_pass http://10.10.10.73:11130;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+  }
+
+  location / {
+    proxy_pass http://10.10.10.73:11110;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+  }
+}
+---------------
+
+sudo mkdir /etc/nginx/sites-enabled
+
+sudo ln -s /etc/nginx/sites-available/test.conf /etc/nginx/sites-enabled/
