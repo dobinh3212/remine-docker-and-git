@@ -206,6 +206,8 @@ git pull --rebase origin develop2
 //kiểm tra username và useremail config git local
 git config user.name
 git config user.email
+//config global
+git config --global --edit
 
 ------------/Xdebug-----------
 RUN pecl install xdebug \
